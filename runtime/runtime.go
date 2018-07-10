@@ -128,6 +128,8 @@ type ProcessState struct {
 	Stderr      string   `json:"containerdStderr"`
 	RuntimeArgs []string `json:"runtimeArgs"`
 	NoPivotRoot bool     `json:"noPivotRoot"`
+	Width       int      `json:"width"`
+	Height      int      `json:"height"`
 
 	PlatformProcessState
 }

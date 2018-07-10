@@ -62,6 +62,8 @@ type processConfig struct {
 	stdio       Stdio
 	exec        bool
 	checkpoint  string
+	width       int
+	height      int
 }
 
 func newProcess(config *processConfig) (*process, error) {
@@ -97,6 +99,8 @@ func newProcess(config *processConfig) (*process, error) {
 		Stderr:      config.stdio.Stderr,
 		RuntimeArgs: config.c.runtimeArgs,
 		NoPivotRoot: config.c.noPivotRoot,
+		Width:       config.width,
+		Height:      config.height,
 	}
 
 	if err := json.NewEncoder(f).Encode(ps); err != nil {

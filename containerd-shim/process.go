@@ -48,6 +48,8 @@ type processState struct {
 	CheckpointPath string   `json:"checkpoint"`
 	RootUID        int      `json:"rootUID"`
 	RootGID        int      `json:"rootGID"`
+	Width          int      `json:"width"`
+	Height         int      `json:"height"`
 }
 
 type process struct {

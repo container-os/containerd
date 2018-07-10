@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/tonistiigi/fifo"
+	"github.com/docker/docker/pkg/term"
 	"golang.org/x/net/context"
 )
 
@@ -66,6 +67,13 @@ func (p *process) openIO() error {
 			stdoutw.Close()
 			p.Done()
 		}()
+		if p.state.Width > 0 || p.state.Height > 0 {
+			ws := term.Winsize{
+				Width: uint16(p.state.Width),
+				Height:uint16(p.state.Height),
+			}
+			term.SetWinsize(p.console.Fd(), &ws)
+		}
 		return nil
 	}
 	i, err := p.initializeIO(uid)

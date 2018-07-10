@@ -19,6 +19,8 @@ type AddProcessTask struct {
 	Stdin         string
 	ProcessSpec   *specs.ProcessSpec
 	StartResponse chan StartResponse
+	Width         int
+	Height        int
 }
 
 func (s *Supervisor) addProcess(t *AddProcessTask) error {
@@ -28,6 +30,8 @@ func (s *Supervisor) addProcess(t *AddProcessTask) error {
 		return ErrContainerNotFound
 	}
 	process, err := ci.container.Exec(t.Ctx(), t.PID, *t.ProcessSpec, runtime.NewStdio(t.Stdin, t.Stdout, t.Stderr))
+	process, err := ci.container.Exec(t.Ctx(), t.PID, *t.ProcessSpec, runtime.NewStdio(t.Stdin, t.Stdout, t.Stderr), t.Width, t.Height)
+
 	if err != nil {
 		return err
 	}
